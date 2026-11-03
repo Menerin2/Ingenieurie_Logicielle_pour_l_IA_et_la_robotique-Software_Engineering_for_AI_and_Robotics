@@ -1,0 +1,31 @@
+<launch>
+
+  
+  <arg name="circuit" default="circuit1.sdf"/>
+  <arg name="world" default=""/>
+
+  <!-- Lancer RViz et Gazebo avec la bonne config -->
+  <include file="$(find-pkg-share iliar_solution)/launch/simu_gui.launch.xml">
+    <arg name="circuit" value="$(var circuit)" />
+    <arg name="world" value="$(var world)" /> 
+  </include>
+
+  <!-- Lancer le noeud de téléopération -->
+  <node 
+  pkg="iliar_solution" 
+  exec="teleop_command" 
+  name="teleop" 
+  output="screen"
+  args = "max_steer max_throttle max_brake steering_axis throttle_axis">
+  
+    <remap from="teleop_steering" to="audibot/steering_cmd"/> 
+    <remap from="teleop_throttle" to="audibot/throttle_cmd"/>
+    <remap from="teleop_brake" to="audibot/brake_cmd"/>
+    <remap from="teleop_gear" to="audibot/gear_cmd"/>
+  </node>
+
+  <node pkg="joy" exec="joy_node" name="joy" output="screen"/>
+
+
+</launch>
+

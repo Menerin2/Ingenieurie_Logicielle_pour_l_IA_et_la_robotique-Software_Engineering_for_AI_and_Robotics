@@ -1,0 +1,18 @@
+data:
+  datapath: /home/ghiles/ros2_ws/dataset  #'/opt/Datasets/'
+  batch_size: 128
+  valid_ratio: 0.2
+
+nepochs: 40
+
+logging:
+  logdir: "./logs"
+
+##linear
+##FNN
+  #num_layers: 2
+  #num_hidden: 128
+  #use_dropout: true
+model:
+  class: FancyCNN
+

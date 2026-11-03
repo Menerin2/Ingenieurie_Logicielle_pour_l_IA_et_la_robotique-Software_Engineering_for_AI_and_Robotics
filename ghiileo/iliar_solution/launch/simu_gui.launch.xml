@@ -1,0 +1,17 @@
+<launch>
+
+  
+  <arg name="circuit" default="circuit1.sdf"/>
+  <arg name="world" default=""/>
+
+  <!-- Lancer la simulation Gazebo -->
+  <include file="$(find-pkg-share iliar_gazebo)/launch/simulation.launch.xml">
+    <arg name="circuit" value="$(var circuit)" />
+    <arg name="world" value="$(var world)" />
+  </include>
+
+  <!-- Lancer RViz avec la bonne config -->
+  <include file="$(find-pkg-share iliar_solution)/launch/rviz_gui.launch.xml" />
+
+</launch>
+

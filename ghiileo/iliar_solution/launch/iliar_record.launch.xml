@@ -1,0 +1,49 @@
+<launch>
+
+  <arg name="circuit" default="circuit1.sdf"/>
+  <arg name="world" default=""/>
+
+  <!-- Throw RViz and Gazebo with the right config -->
+  <include file="$(find-pkg-share iliar_solution)/launch/simu_gui.launch.xml">
+    <arg name="circuit" value="$(var circuit)" />
+    <arg name="world" value="$(var world)" />
+  </include>
+
+  <!-- PID : Path publisher -->
+  <node
+      pkg="iliar_solution"
+      exec="path_publisher"
+      name="path_pub"
+      output="screen"
+      args="$(find-pkg-share iliar_gazebo)/worlds/$(var circuit)"
+  />
+
+  <!-- Launch the record_dataset node -->
+  <node
+        pkg="iliar_solution"
+        exec="record_dataset"
+        output="screen">
+  </node>
+
+  <!-- Launch teleoperation node -->
+  <node
+      pkg="iliar_solution"
+      exec="teleop_command"
+      name="teleop"
+      output="screen">
+
+      <remap from="teleop_steering" to="audibot/steering_cmd"/> 
+      <remap from="teleop_throttle" to="audibot/throttle_cmd"/>
+      <remap from="teleop_brake" to="audibot/brake_cmd"/>
+      <remap from="teleop_gear" to="audibot/gear_cmd"/>
+  </node>
+
+  <!-- Launch joy node -->
+  <node
+      pkg="joy"
+      exec="joy_node"
+      name="joy"
+      output="screen">
+  </node>
+
+</launch>

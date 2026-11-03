@@ -1,0 +1,32 @@
+Topic: sensor_msgs/msg/Joyshow
+
+message structure:
+std_msgs/Header header
+	builtin_interfaces/Time stamp
+		int32 sec
+		uint32 nanosec
+	string frame_id
+
+
+Axes float32[]
+0: LeftJoycon (1:left, -0:none -1:right)
+1: LeftJoycon (1:up, -0:none -1:down)
+2: LT (1:released, -1:pressed)
+3: RightJoycon (1:left, -0:none -1:right)
+4: RightJoycon (1:up, -0:none -1:down)
+5: RT (1:released, -1:pressed)
+6: Arrows (1:left, 0:none, -1:right)
+7: Arrows (1:up, 0:none, -1:down)
+
+Buttons int32[]
+0: A
+1: B
+2: X
+3: Y
+4: LB
+5: RB
+6: back
+7: start
+8: logitech
+9: L3
+10: R3

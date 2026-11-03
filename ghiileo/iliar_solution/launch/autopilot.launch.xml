@@ -1,0 +1,26 @@
+<launch>
+
+  
+  <arg name="circuit" default="circuit1.sdf"/>
+  <arg name="world" default=""/>
+
+  <!-- Lancer RViz et Gazebo avec la bonne config -->
+  <include file="$(find-pkg-share iliar_solution)/launch/simu_gui.launch.xml">
+    <arg name="circuit" value="$(var circuit)" />
+    <arg name="world" value="$(var world)" /> 
+  </include>
+
+  <!-- Lancer le noeud d'autopilot -->
+  <node 
+    pkg="iliar_solution" 
+    exec="autopilot" 
+    name="autopilot" 
+    output="screen"
+    args = "$(find-pkg-share iliar_solution)/models/model.onnx">
+
+      <remap from="autopilot_steering" to="audibot/steering_cmd"/> 
+      <remap from="autopilot_throttle" to="audibot/throttle_cmd"/>
+  </node>
+
+</launch>
+
